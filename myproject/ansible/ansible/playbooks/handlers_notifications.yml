@@ -1,0 +1,17 @@
+---
+- name: Configuring FTP Server
+  hosts: local
+  become: yes
+  become_method: sudo
+  tasks:
+   - name: Install FTP Server
+     yum: name=vsftpd state=latest
+     notify:
+     - enable and start the service 
+  handlers:
+   - name: enable and start the service
+     service: name=vsftpd state=started
+
+
+
+

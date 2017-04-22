@@ -1,0 +1,26 @@
+---
+- hosts: local
+  user: test
+  become: yes
+  become_method: sudo 
+  gather_facts: yes
+  tasks:
+  - name: date/time stamp when the playbook start
+    raw: /usr/bin/date > /home/test/playbook_start.log
+
+  - name: Install the web server
+    yum: pkg=httpd state=latest
+
+  - name: start the web service
+    service: name=httpd state=restarted
+
+#  - name: Verify whether the service is running
+    command: service httpd status
+    register: result
+    debug: var=result
+
+  - name: log all the packages installed on system
+    raw: yum list intalled > /home/test/installed.log
+
+  - name: Date/time stamp when the playbook ends
+    raw: /usr/bin/date > /home/test/playbook_end.log  

@@ -1,0 +1,16 @@
+---
+- hosts: '{{ myhosts }}'
+  #remote_user: ansible
+  become: yes
+  become_method: sudo
+  vars_files:
+        - vars.yml
+  gather_facts: '{{ gather }}'
+  tasks:
+  - name: Install the indicated software
+    yum: 
+     name: '{{ pkg }}'
+     state: present
+
+  - name: Start the service
+    service: name='{{ pkg }}' state=started

@@ -1,0 +1,19 @@
+---
+- hosts: local
+  user: test
+  become: yes
+  become_method: sudo 
+  gather_facts: no
+  vars:
+    playbook_version: 0.1b
+  vars_files: 
+    - /etc/ansible/ansible/playbooks/conf/coyright.yml
+    - /etc/ansible/ansible/playbooks/conf/webdefaults.yml
+  vars_prompt:
+     - name: Web_Domain
+       prompt: Web Domain 
+  tasks: 
+   - name: Instal Lynx Web Browser
+     action: yum name=lynx state=installed
+   - name: Check for telnet Client
+     action: yum name=telnet state=absent

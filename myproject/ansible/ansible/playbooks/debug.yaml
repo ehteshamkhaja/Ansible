@@ -1,0 +1,19 @@
+---
+- name: Configuring FTP Server
+  hosts: local
+  become: yes
+  become_method: sudo
+  tasks:
+   - name: Install FTP Server
+     yum: name=vsftpd state=latest
+    
+     register: result  # register the result of module(here yum) output in variable
+
+   - debug: var=result
+   
+   - name: start the service
+     service: name=vsftpd state=started
+    
+
+
+

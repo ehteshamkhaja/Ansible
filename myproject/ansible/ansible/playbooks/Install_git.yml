@@ -1,0 +1,11 @@
+--- # Playbook to Install Git 
+
+- hosts: local
+ # user:  test
+  gather_facts: yes
+  tasks:
+   - name: Install Git on this system 
+     yum: name=git state=latest update_cache=yes
+    
+
+

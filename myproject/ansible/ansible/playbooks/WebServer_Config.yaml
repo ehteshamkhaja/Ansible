@@ -1,0 +1,22 @@
+- name: Configure HTTPD Webserver
+  hosts: local
+  become: yes
+  become_method: sudo
+  tasks:
+   - name: Install HTTPD package
+     yum: name=httpd state=latest
+
+   - name: Let httpd service enabled
+     service: name=httpd state=started
+
+   - name: Install FTP Server
+     yum: name=vsftpd state=latest
+     notify:
+     - enable and start the service 
+  handlers:
+   - name: enable and start the service
+     service: name=vsftpd state=started
+
+
+
+
